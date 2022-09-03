@@ -1,0 +1,79 @@
+<div class="container mt-5"> 
+    <div class="row">
+        <div class="col-lg-15 offset-log-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <span class="titulo">LISTADO DE TAREAS</span>
+                    <div>
+                        <span class="float-start">Filtrar por :</span>
+                        <select style="width:130px;margin-left:80px" class="form-select form-select-sm " aria-label="size 3">
+                            <option value="Todas">Todas</option>
+                            <option value="Pendiente">Pendientes</option>
+                            <option value="Completada">Completadas</option>
+                        </select>
+                    </div>
+                    
+                    
+                    <table *ngIf="listTareas.length>0" class="table mt-3">
+                        <thead> 
+                          <tr>
+                            <th scope="col">Tarea</th>
+                            <th scope="col">Estatus</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let tarea of listTareas">
+                            <td scope="row">{{tarea.descripcion}}</td>
+                            <select class="form-select form-select-md" aria-label="size 1">
+                                <option [selected]="tarea.estatus === 'pendiente'" value="pendiente">Pendiente</option>
+                                <option [selected]="tarea.estatus === 'completada'" value="completada">Completada</option>
+                            </select>
+
+
+                            <td>
+                                <i (click) = "actualizarTarea(tarea._id)" id = "editar" class="fas fa-light fa-pen-to-square"></i>
+                                <i (click) = "eliminarTarea(tarea._id)" class="fas fa-solid fa-trash text-danger"></i>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div  class="container mt-5">
+    <div class="row">
+        <div class="col-lg-6 offser-lg-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <span class="titulo">{{ titulo | uppercase}}</span>
+                    <form class="mt-3" [formGroup]="tareaForm" (ngSubmit)="agregarTarea()" > 
+                        <div class="mb-3">
+                            <input type="text" formControlName="tarea" class="form-control form-control-md" placeholder="Descripción">
+                            <div class="text-danger"
+                                *ngIf="tareaForm.get('tarea')?.hasError('required') && tareaForm.get('tarea')?.touched">
+                                <span> Describe la tarea </span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-success float-end margin">ACEPTAR</button>
+                        </div>
+                    </form>
+                </div>
+   
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
